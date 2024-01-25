@@ -1,0 +1,14 @@
+{
+  "name": "build_api_node",
+  "version": "1.0.0",
+  "description": "API developed in RocketSeat Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felipe Muchulski de Andrades",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
