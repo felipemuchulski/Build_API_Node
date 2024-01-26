@@ -72,3 +72,51 @@ POST - Create
 PUT  - Update
 DElETE - Delete
 PATCH - Partial Update
+
+# Route Params
+Is a strategy we made to pass the parameter, for example:
+ 
+<!-- api address                       route      parameter-->
+https://enderecoservidor.com.br       /user/        5
+
+
+app.get('/message/:id/:user', (request, response) => {
+    const {id, user} = request.params;
+
+    response.send(`
+    ID Message: ${id}
+    For user: ${user}`);
+} )
+
+in this exemple, "request.params" is used for simple data. We don't use request.params for complex data.
+
+# Query Paramns
+Example:
+<!--api address                   route  separator             key       value    separator        key       value-->  
+https://enderecoservidor.com.br  /user/      ?                 page   =    2          &            limit =    10
+
+There's a difference between route.params and query.params. You need to declare route.params in the request, but in query.params you don't need to.
+
+Exemple:
+
+> Route.params
+
+app.get('/message/:id/:user', (request, response) => {
+    const {id, user} = request.params;
+
+    response.send(`
+    ID message: ${id}
+    For user: ${user}`)
+});
+
+> Query params
+
+app.get('/user', (request, response) => {
+    const {page, limit} = request.query;
+
+    response.send(`
+    page: ${page}. limit ${limit}`);
+
+});
+
+In query.params you don't need declare '/user/:page/:limit'.
