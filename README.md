@@ -120,3 +120,12 @@ app.get('/user', (request, response) => {
 });
 
 In query.params you don't need declare '/user/:page/:limit'.
+
+# Nodemon:
+Comand install:
+npm install nodemon --save-dev
+
+Obs: "--save-dev" this flag is used as development dependency. it will be used when we are developing an application.
+
+Comand run: 
+npm run dev. 
