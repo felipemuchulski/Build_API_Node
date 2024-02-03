@@ -129,3 +129,49 @@ Obs: "--save-dev" this flag is used as development dependency. it will be used w
 
 Comand run: 
 npm run dev. 
+
+# Controllers
+Controllers serve to verify information and process data.
+
+In this project we will use Class.
+
+example:
+
+class UsersController {
+ // index  - GET to list registers;
+ // show   - GET to show specific register;
+ // create - POST to create register;
+ // update - UPDATE for update register;
+ // delete - DELETE register;
+}
+
+Controller uses a maximum of 5 methods, if pass 5 create other controller
+
+
+# HTTP Codes or Status Code:
+> 1xx: Informational = the request is accepted or processing is running.
+    102 - Processing
+
+> 2xx: Success
+    200: Successful request
+    201: Created - used with method POST
+
+> 3xx: Redirection:
+    301: moved permenanetly
+    302: moved
+
+> 4xx: Client Error:
+    400: bad request
+    401: unauthorized
+    404: not found
+
+> 5xx: Server Error: 
+    500: internal error
+
+
+# Middleware: 
+Middlewares they are functions that have access to the request object, response object and in the next function middleware of the application's request-response cycle.
+
+Example:
+
+site -> request -> middleware -> newProcut().
