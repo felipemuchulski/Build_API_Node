@@ -173,5 +173,4 @@ Controller uses a maximum of 5 methods, if pass 5 create other controller
 Middlewares they are functions that have access to the request object, response object and in the next function middleware of the application's request-response cycle.
 
 Example:
-
 site -> request -> middleware -> newProcut().
