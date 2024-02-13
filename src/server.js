@@ -1,6 +1,6 @@
 require("express-async-error")
 
-const database = require("./database/sqlite/index.js");
+const database = require("./database/postgresql/index.js");
 //express declared
 const express = require("express");
 
