@@ -1,6 +1,6 @@
 require("express-async-error")
 
-const database = require("./database/postgresql/index.js");
+const migrationsRun = require("./database/postgresql/migrations/index");
 //express declared
 const express = require("express");
 
@@ -9,6 +9,7 @@ const AppError = require("./utils/AppError")
 
 //import routes
 const routes = require("./routes")
+migrationsRun();
 
 
 //running express on code 
@@ -16,7 +17,8 @@ const app = express();
 app.use(express.json());
 
 app.use(routes)
-database();
+
+
 
 
 app.use((error, request, response, next) => {
