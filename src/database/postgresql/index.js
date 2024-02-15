@@ -8,8 +8,15 @@ const client = new Client({
 });
 
 
-async function pgConnection(){
-   await client.connect();
+async function pgConnection() {
+    try {
+        await client.connect();
+        console.log('Conexão com o PostgreSQL estabelecida com sucesso!');
+        return client;
+    } catch (error) {
+        console.error('Erro ao conectar com o PostgreSQL:', error);
+        throw error;
+    }
 }
 
 
