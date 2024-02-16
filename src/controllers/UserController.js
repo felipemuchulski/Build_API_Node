@@ -8,7 +8,7 @@ class UserController {
     try {
       const checkUserExists = await connectionString.query("SELECT * FROM users WHERE email = $1", [email]);
 
-      if (checkUserExists.length > 0) {
+      if (checkUserExists) {
         throw new AppError('E-mail já cadastrado', 400);
       }
 
