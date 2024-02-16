@@ -7,7 +7,7 @@ JS Runtime Eviroment. Node.js is an environment that offers features that allow 
 
 - O Node.js can do everything you think, from websites to automation scripts, including API creation
 
-# Where can Node be used:
+# Where can Node.js be used:
 List:
 - Backend;
 - Frontend;
