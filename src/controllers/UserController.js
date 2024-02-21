@@ -1,4 +1,4 @@
-const { hash } = require("bcryptjs")
+const { hash, compare} = require("bcryptjs")
 const AppError = require("../utils/AppError");
 const connectionString = require('../database/postgresql/connect_database');
 
@@ -27,7 +27,7 @@ class UserController {
   }
 
   async update(request, response) {
-    const {name, email} = request.body;
+    const {name, email, password, old_password} = request.body;
     const { id } = request.params;
 
 
@@ -44,16 +44,33 @@ class UserController {
       throw new AppError('Este e-mail ja esta em uso')
     }
 
-    user.name = name;
-    user.email = email;
+    user.name = name ?? user.name;
+    user.email = email ?? user.email;
+
+    if(password && !old_password){
+      throw new AppError('Voce precisa informar a senha antiga')
+    }
+    
+    if(password && old_password) {
+      const checkOldPassword =  await connectionString.query('SELECT * FROM users WHERE password_user = $1', [password])
+      .then(compare(old_password, password))
+
+      if(!checkOldPassword){
+        throw new AppError('Senha antiga nao confere')
+      }
+
+      user.password = await hash(password, 8)
+      console.log(password);
+    }
 
     await connectionString.query(`
     UPDATE users SET
     name_user = $1,
     email = $2,
-    update_at = $3
+    password_user = $3,
+    update_at = NOW()
     WHERE id_users = $4`,
-    [user.rows[0].name_user, user.rows[0].email, new Date(), id])
+    [user.rows[0].name_user, user.rows[0].email, user.password , id])
 
     return response.status(200).json('alterado');
   } catch (error) {
