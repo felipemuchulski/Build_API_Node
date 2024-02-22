@@ -168,5 +168,7 @@ Example:
 site -> request -> middleware -> newProcut().
 
 
+# SQL Query Builder
 
+QUERY BUILDER é um construtor de Consulta. O Query Builder permite que você construa instruções SQL independente do banco de dados utilizados.
 
