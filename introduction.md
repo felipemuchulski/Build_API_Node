@@ -169,6 +169,13 @@ site -> request -> middleware -> newProcut().
 
 
 # SQL Query Builder
-
 QUERY BUILDER é um construtor de Consulta. O Query Builder permite que você construa instruções SQL independente do banco de dados utilizados.
 
+# Migrations
+É uma forma de versionar a base de dados. Migrations trabalha na manipulação da base de dados: criando, alterando ou removendo.
+
+> UP:
+Método responsável por criar ou alterar algo no banco de dados.
+
+> Down: 
+Responsável pelo rollback. Ou seja, desfazer as alterações realizadas pela migration.
