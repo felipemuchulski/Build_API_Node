@@ -15,6 +15,9 @@ module.exports = {
       host: "localhost",
       port: 5432,
       database: "Node_API"
+    },
+    migrations: {
+      directory: path.resolve(__dirname, "src", "database", "knex", "migrations")
     }
   },
 
