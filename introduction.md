@@ -179,3 +179,22 @@ Método responsável por criar ou alterar algo no banco de dados.
 
 > Down: 
 Responsável pelo rollback. Ou seja, desfazer as alterações realizadas pela migration.
+
+# NPM:
+Node Package Manager é o gerenciador de pacotes padrão para Node.js. Os pacotes e módulos necessários no projeto Node são instalados usando npm. E também utilizamos o npm para executar scripts e bibliotecas instaladas.
+
+Foco em instalação
+
+# NPX:
+O npx significa Node Package Execute e vem com o npm acima da versão 5.2. É um executador de pacotes npm que pode executar qualquer pacote que você quiser do registro NPM sem sequer instalar esse pacote.
+
+Foco em execução.
+
+# Primary Key:
+Identificador único dentro de uma tabela. Assegura que jamais será duplicado o valor.
+
+# Foreign Key:
+É quando você tem outra chave que é gerada dentro de outra tabela. Digamos que exista uma tabela de notas e queremos conectar um registro com outra informação de tal usuário. Iremos precisar da referência da tabela de usuário com sua Foreign Key.
+
+# Cardinalidade: 
+É a frequência que uma entidade se relaciona com a outra, ou, a frequência que uma tabela se relaciona com a outra.

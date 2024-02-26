@@ -5,8 +5,8 @@ const { table } = require("..");
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = (knex) => knex.schema.createTable("note", (table) => {
-    table.increments("id");
+exports.up = (knex) => knex.schema.createTable("notes", (table) => {
+    table.increments("notes_id");
     table.text("title");
     table.text("description");
     table.integer("user_id").references("id_users").inTable("users")
