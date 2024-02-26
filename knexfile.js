@@ -8,7 +8,7 @@
 module.exports = {
 
   development: {
-    client: 'sqlite3',
+    client: 'pg',
     connection: {
       user: "postgres",
       password: "91584072",
