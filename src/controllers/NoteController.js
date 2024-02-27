@@ -6,11 +6,11 @@ class NotesController{
         const {title, description, tags, links} = request.body;
         const {user_id} = request.params;
 
-        const note_id = await knex("notes").insert({
+        const [{note_id}] = await knex("notes").insert({
             title,
             description,
             user_id
-        });
+        }).returning("note_id");
         
         console.log('oi', note_id)
         const linksInsert = links.map(link => {
@@ -24,10 +24,10 @@ class NotesController{
 
 
 
-        const tagsInsert = tags.map(name => {
+        const tagsInsert = tags.map(name_tag => {
             return {
                 note_id,
-                name,
+                name_tag,
                 user_id
             }
         });
