@@ -6,17 +6,17 @@ class NotesController{
         const {title, description, tags, links} = request.body;
         const {user_id} = request.params;
 
-        const [note_id] = await knex("note").insert({
+        const note_id = await knex("notes").insert({
             title,
             description,
-            tags,
             user_id
         });
         
+        console.log('oi', note_id)
         const linksInsert = links.map(link => {
             return {
                 note_id,
-                url: link
+                url: link,
             }
         });
 

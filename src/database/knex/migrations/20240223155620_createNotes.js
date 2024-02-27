@@ -6,11 +6,11 @@ const { table } = require("..");
  * @returns { Promise<void> }
  */
 exports.up = (knex) => knex.schema.createTable("notes", (table) => {
-    table.increments("notes_id");
+    table.increments("note_id");
     table.text("title");
     table.text("description");
-    table.integer("user_id").references("id_users").inTable("users")
 
+    table.integer("user_id").references("id_users").inTable("users");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("update_at").defaultTo(knex.fn.now());
 

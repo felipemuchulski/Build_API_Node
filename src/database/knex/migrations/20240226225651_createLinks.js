@@ -6,14 +6,10 @@ const knex = require("knex");
  */
 exports.up = (knex) => knex.schema.createTable("links", (table) => {
     table.increments("id_link");
-    table.text("name_link").notNullable();
+    table.text("url").notNullable();
     
-    table.integer("id_notes").references("notes_id").inTable("notes").onDelete("CASCADE");
+    table.integer("note_id").references("note_id").inTable("notes").onDelete("CASCADE");
     table.timestamp("created_at").defaultTo(knex.fn.now());
-
-
-    
-
 });
 
 /**
