@@ -105,7 +105,7 @@ class NotesController {
         const user_Notes = await connectionString.query("SELECT * FROM notes WHERE user_id = $1 ORDER BY title ASC", [user_id]);
         
         if (user_Notes.rows.length > 0) {
-            return response.json(user_Notes);
+            return response.json(user_Notes.rows);
         }
 
        
