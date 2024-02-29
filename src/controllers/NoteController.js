@@ -99,17 +99,28 @@ class NotesController {
 
 
   async index(request, response){
-    const { user_id } = request.query
+    const { title,  user_id, tags } = request.query
+
+    let user_Notes;
 
     try {
-        const user_Notes = await connectionString.query("SELECT * FROM notes WHERE user_id = $1 ORDER BY title ASC", [user_id]);
+
+      if (tags) {
+        const filteredTags = tags.split(',').map(tag => tag.trim())
+        console.log(filteredTags)
+
+        user_Notes = await connectionString.query('SELECT * FROM tags WHERE name_tag IN($1)', [filteredTags]);
+        // user_Notes = await knex('tags').whereIn('name_tag', filteredTags);
+        
+        return response.json(user_Notes.rows);
+      } else {
+        user_Notes = await connectionString.query("SELECT * FROM notes WHERE user_id = $1 AND title LIKE $2 ORDER BY title ASC", [user_id, `%${title}%`]);
         
         if (user_Notes.rows.length > 0) {
             return response.json(user_Notes.rows);
         }
 
-       
-        
+      };
     } catch (error) {
         response.status(500).json('Sem registro');
     }
