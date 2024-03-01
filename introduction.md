@@ -198,3 +198,6 @@ Identificador único dentro de uma tabela. Assegura que jamais será duplicado o
 
 # Cardinalidade: 
 É a frequência que uma entidade se relaciona com a outra, ou, a frequência que uma tabela se relaciona com a outra.
+
+# InnerJoin:
+Serve para unir tabelas, para que possamos selecionar duas tabelas unificados. Em uma única consulta.
