@@ -3,8 +3,6 @@ const { link } = require("../routes");
 const connectionString = require("../database/postgresql/connect_database");
 const AppError = require("../utils/AppError");
 
-
-
 class NotesController {
   async create(request, response) {
     const { title, description, tags, links } = request.body;
@@ -81,47 +79,57 @@ class NotesController {
     }
   }
 
-
   async delete(request, response) {
-    const {note_id } = request.params
+    const { note_id } = request.params;
 
     try {
-        const deleteNote = await connectionString.query('DELETE FROM notes WHERE note_id = $1', [note_id]);
-        
-        if(deleteNote.rows.length){
-            response.json('Linha deletada');
-        }
+      const deleteNote = await connectionString.query(
+        "DELETE FROM notes WHERE note_id = $1",
+        [note_id]
+      );
 
+      if (deleteNote.rows.length) {
+        response.json("Linha deletada");
+      }
     } catch (error) {
-        response.status(500).json('Falha ao excluir');
+      response.status(500).json("Falha ao excluir");
     }
   }
 
-
-  async index(request, response){
-    const { title,  user_id, tags } = request.query
+  async index(request, response) {
+    const { title, user_id, tags } = request.query;
 
     let user_Notes;
     try {
       if (tags) {
-        const filteredTags = tags.split(',').map(tag => tag.trim())
-        console.log(filteredTags)
+        const filteredTags = tags.split(",").map(tag => tag.trim());
+       
 
-        user_Notes = await connectionString.query('SELECT * FROM tags WHERE name_tag  = ANY($1)', [filteredTags]);
+        user_Notes = await connectionString.query(
+          "SELECT notes.note_id, notes.title, notes.user_id FROM tags INNER JOIN notes ON tags.note_id = notes.note_id WHERE notes.user_id = $1 AND notes.title LIKE $2 AND tags.name_tag = ANY($3)",
+          [user_id, `%${title}%`, filteredTags ]
+        );
+        
+
+        
         // user_Notes = await knex('tags').whereIn('name_tag', filteredTags);
-        
-        return response.json(user_Notes.rows);
+
+        return response.json(user_Notes);
       } else {
-        user_Notes = await connectionString.query("SELECT * FROM notes WHERE user_id = $1 AND title LIKE $2 ORDER BY title ASC", [user_id, `%${title}%`]);
-        
+        user_Notes = await connectionString.query(
+          "SELECT * FROM notes WHERE user_id = $1 AND title LIKE $2 ORDER BY title ASC",
+          [user_id, `%${title}%`]
+        );
+
         if (user_Notes.rows.length > 0) {
-            return response.json(user_Notes.rows);
+          return response.json(user_Notes.rows);
         }
 
         return response.json(user_Notes);
-      };
+      }
     } catch (error) {
-        response.status(500).json('Sem registro');
+      console.log(user_Notes)
+      response.status(500).json("Sem registro");
     }
   }
 }
