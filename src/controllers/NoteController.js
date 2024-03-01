@@ -102,14 +102,12 @@ class NotesController {
     const { title,  user_id, tags } = request.query
 
     let user_Notes;
-
     try {
-
       if (tags) {
         const filteredTags = tags.split(',').map(tag => tag.trim())
         console.log(filteredTags)
 
-        user_Notes = await connectionString.query('SELECT * FROM tags WHERE name_tag IN($1)', [filteredTags]);
+        user_Notes = await connectionString.query('SELECT * FROM tags WHERE name_tag  = ANY($1)', [filteredTags]);
         // user_Notes = await knex('tags').whereIn('name_tag', filteredTags);
         
         return response.json(user_Notes.rows);
@@ -120,6 +118,7 @@ class NotesController {
             return response.json(user_Notes.rows);
         }
 
+        return response.json(user_Notes);
       };
     } catch (error) {
         response.status(500).json('Sem registro');
