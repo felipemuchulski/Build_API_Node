@@ -114,7 +114,7 @@ class NotesController {
         
         // user_Notes = await knex('tags').whereIn('name_tag', filteredTags);
 
-        return response.json(user_Notes);
+        return response.json(user_Notes.rows);
       } else {
         user_Notes = await connectionString.query(
           "SELECT * FROM notes WHERE user_id = $1 AND title LIKE $2 ORDER BY title ASC",
