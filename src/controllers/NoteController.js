@@ -1,7 +1,5 @@
 const knex = require("../database/knex");
-const { link } = require("../routes");
 const connectionString = require("../database/postgresql/connect_database");
-const AppError = require("../utils/AppError");
 
 class NotesController {
   async create(request, response) {
