@@ -109,12 +109,7 @@ class NotesController {
           "SELECT notes.note_id, notes.title, notes.user_id FROM tags INNER JOIN notes ON tags.note_id = notes.note_id WHERE notes.user_id = $1 AND notes.title LIKE $2 AND tags.name_tag = ANY($3)",
           [user_id, `%${title}%`, filteredTags ]
         );
-        
-
-        
-        // user_Notes = await knex('tags').whereIn('name_tag', filteredTags);
-
-        return response.json(user_Notes.rows);
+      
       } else {
         user_Notes = await connectionString.query(
           "SELECT * FROM notes WHERE user_id = $1 AND title LIKE $2 ORDER BY title ASC",
@@ -127,8 +122,21 @@ class NotesController {
 
         return response.json(user_Notes);
       }
+
+      const userTags = await connectionString.query("SELECT * FROM tags WHERE user_id = $1", [user_id]);
+      const notesWithTags = user_Notes.rows.map(note => {
+        const noteTags = userTags.rows.filter(tag => tag.note_id === note.note_id);
+
+        return {
+          ...note,
+          tags: noteTags
+        }
+      })
+
+      return response.json(notesWithTags);
+
     } catch (error) {
-      console.log(user_Notes)
+      
       response.status(500).json("Sem registro");
     }
   }
