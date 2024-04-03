@@ -13,6 +13,7 @@ exports.up = (knex) => knex.schema.createTable("notes", (table) => {
     table.integer("user_id").references("id_users").inTable("users");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("update_at").defaultTo(knex.fn.now());
+    
 
 });
 
